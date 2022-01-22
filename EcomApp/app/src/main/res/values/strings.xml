@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Ecommerce App</string>
+
+    <string name="free_delevery_description">free delevery on orders above 10000</string>
+
+    <string name="jumia_mall_description">Jumia Mall</string>
+    <string name="jumia_global_description">Jumia Global</string>
+    <string name="jumia_prime_description">Jumia Prime</string>
+    <string name="jumia_bill_description">Jumia Bill</string>
+
+    <string name="deals">  DEALS OF THE DAY</string>
+    <string name="time">  23h : 27m : 58s left</string>
+
+    <string name="gliding_description">Smoother Gliding Stream Ir</string>
+    <string name="cotton_description">Printed Cotton Crewneck Tee</string>
+</resources>
