@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">My First App</string>
+    <string name="msg_placeholder">Enter a message</string>
+    <string name="send">Send</string>
+    <string name="default_rien_recu">Rien Reçu</string>
+
+    <string name="ex3">Exercice 3</string>
+    <string name="sms_msg">SMS</string>
+    <string name="appel_msg">APPEL</string>
+    <string name="web_msg">WEB</string>
+</resources>
