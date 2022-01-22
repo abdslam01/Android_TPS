@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Menu Restaurant</string>
+    <string name="pizzaDesc">Pizza Image</string>
+
+    <string name="pizza_name">Margarita - 25dh</string>
+    <string name="pizza_description">(Sauce tomate parfumée aux herbes, mozzarella, basilic frais)</string>
+    <string name="pizza_name2">Aux légumes grillés - 30dh</string>
+    <string name="pizza_description2">(Sauce tomate parfumée aux herbes, mozzarella, aubergines, poivrons à l\'huile d\'olive, courgettes grillées)</string>
+    <string name="pizza_name3">Tropicale - 43dh</string>
+    <string name="pizza_description3">(Crème fraîche, ananas, jambon/poulet, raisins)</string>
+    <string name="pizza_name4">Catania - 45dh</string>
+    <string name="pizza_description4">(Sauce tomate parfumée aux herbes, mozzarella, thon, persillade, tomates œuf, capres, olives, poivrons)</string>
+
+    <string name="quit">Quitter</string>
+</resources>
