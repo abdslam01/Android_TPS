@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".MainActivity">
+
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.gridlayout.widget.GridLayout
+            android:id="@+id/gridLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"
+            app:columnCount="3"
+            app:rowCount="5">
+
+            <ImageView
+                android:id="@+id/img_id1"
+                android:layout_width="120dp"
+                android:layout_margin="4dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="pizza1"
+                android:src="@drawable/pizza1"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1" />
+
+            <ImageView
+                android:id="@+id/img_id2"
+                android:layout_width="120dp"
+                android:layout_margin="4dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="pizza2"
+                android:src="@drawable/pizza2"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1" />
+
+            <ImageView
+                android:id="@+id/img_id3"
+                android:layout_width="120dp"
+                android:layout_margin="4dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="pizza3"
+                android:src="@drawable/pizza3"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1" />
+
+            <ImageView
+                android:id="@+id/img_id4"
+                android:layout_width="120dp"
+                android:layout_margin="4dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="pizza4"
+                android:src="@drawable/pizza4"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1" />
+
+            <ImageView
+                android:id="@+id/img_id5"
+                android:layout_width="120dp"
+                android:layout_margin="4dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="nature1"
+                android:src="@drawable/nature1"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1" />
+
+            <ImageView
+                android:id="@+id/img_id6"
+                android:layout_width="120dp"
+                android:layout_margin="4dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="nature2"
+                android:src="@drawable/nature2"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1" />
+
+            <ImageView
+                android:id="@+id/img_id7"
+                android:layout_width="120dp"
+                android:layout_margin="4dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="nature3"
+                android:src="@drawable/nature3"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1" />
+
+            <ImageView
+                android:id="@+id/img_id8"
+                android:layout_width="120dp"
+                android:layout_margin="4dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="nature4"
+                android:src="@drawable/nature4"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1" />
+
+            <ImageView
+                android:id="@+id/img_id9"
+                android:layout_width="120dp"
+                android:layout_margin="4dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="pizza1"
+                android:src="@drawable/pizza1"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1" />
+
+            <ImageView
+                android:id="@+id/img_id10"
+                android:layout_width="120dp"
+                android:layout_margin="4dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="pizza2"
+                android:src="@drawable/pizza2"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1" />
+
+        </androidx.gridlayout.widget.GridLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
