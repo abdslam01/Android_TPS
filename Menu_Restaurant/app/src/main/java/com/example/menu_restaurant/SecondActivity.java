@@ -1,29 +1,37 @@
 package com.example.menu_restaurant;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+import java.util.ArrayList;
+
+public class SecondActivity extends AppCompatActivity {
+
+    private ArrayList<String> supportedProducts;
+    private String productToShow;
+
+    public SecondActivity() {
+        String[] products = {"pizzas"};
+        supportedProducts = new ArrayList<>();
+        for(String p: products)
+            supportedProducts.add(p);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        // Grab All TextViews, And Assign A ClickListener To Eachone Of Them
-        try{
-            for(int i=1; ; i++){ // grab till you get an exception then exit
-                int id = getResources().getIdentifier("textView"+i, "id", getPackageName());
-                TextView iv = (TextView) findViewById(id);
-                iv.setOnClickListener(this);
-            }
-        }catch(Exception e){}
+        // specify product to show
+        productToShow = getIntent().getStringExtra("products_to_show")
+                .toLowerCase();
+        if(!supportedProducts.contains(productToShow)) {
+            setContentView(R.layout.activity_no_data_found);
+            return;
+        }
+        setContentView(R.layout.activity_second);
     }
 
     @Override
@@ -44,11 +52,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    public void onClick(View v) {
-        Intent intent = new Intent(v.getContext(), SecondActivity.class);
-        intent.putExtra("products_to_show", ((TextView) v).getText().toString());
-        startActivity(intent);
     }
 }

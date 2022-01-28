@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.gridlayout.widget.GridLayout
+            android:id="@+id/products_gridlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            app:columnCount="1"
+            app:rowCount="10">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="5sp"
+                android:background="@color/light_gray">
+
+                <ImageView
+                    android:id="@+id/pizza_img1"
+                    android:layout_width="240dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/pizzaDesc"
+                    app:srcCompat="@drawable/pizza1" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingStart="4sp"
+                    android:paddingEnd="4sp">
+
+                    <TextView
+                        android:id="@+id/pizza_title1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pizza_name1"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/pizza_description1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pizza_description1"
+                        android:textSize="22sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="5sp"
+                android:background="@color/light_gray">
+
+                <ImageView
+                    android:id="@+id/pizza_img2"
+                    android:layout_width="240dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/pizzaDesc"
+                    app:srcCompat="@drawable/pizza2" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingStart="4sp"
+                    android:paddingEnd="4sp">
+
+                    <TextView
+                        android:id="@+id/pizza_title2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pizza_name2"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/pizza_description2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pizza_description2"
+                        android:textSize="22sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="5sp"
+                android:background="@color/light_gray">
+
+                <ImageView
+                    android:id="@+id/pizza_img3"
+                    android:layout_width="240dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/pizzaDesc"
+                    app:srcCompat="@drawable/pizza3" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingStart="4sp"
+                    android:paddingEnd="4sp">
+
+                    <TextView
+                        android:id="@+id/pizza_title3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pizza_name3"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/pizza_description3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pizza_description3"
+                        android:textSize="22sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="5sp"
+                android:background="@color/light_gray">
+
+                <ImageView
+                    android:id="@+id/pizza_img4"
+                    android:layout_width="240dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/pizzaDesc"
+                    app:srcCompat="@drawable/pizza4" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingStart="4sp"
+                    android:paddingEnd="4sp">
+
+                    <TextView
+                        android:id="@+id/pizza_title4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pizza_name4"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/pizza_description4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pizza_description4"
+                        android:textSize="22sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="5sp"
+                    android:background="@color/light_gray">
+
+                    <ImageView
+                        android:id="@+id/pizza_img5"
+                        android:layout_width="240dp"
+                        android:layout_height="120dp"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/pizzaDesc"
+                        app:srcCompat="@drawable/pizza1" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingStart="4sp"
+                        android:paddingEnd="4sp">
+
+                        <TextView
+                            android:id="@+id/pizza_title5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pizza_name1"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/pizza_description5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pizza_description1"
+                            android:textSize="22sp" />
+                    </LinearLayout>
+                </LinearLayout>
+        </androidx.gridlayout.widget.GridLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
