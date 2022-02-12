@@ -2,7 +2,9 @@ package com.example.androidexamproject;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -35,25 +37,42 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    DrawerLayout drawer = binding.drawerLayout;
-    NavigationView navigationView = binding.navView;
-    // Passing each menu ID as a set of Ids because each
-    // menu should be considered as top level destinations.
-    mAppBarConfiguration = new AppBarConfiguration.Builder(
-            R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
-            .setOpenableLayout(drawer)
-            .build();
+        DrawerLayout drawer = binding.drawerLayout;
+        NavigationView navigationView = binding.navView;
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        mAppBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                .setOpenableLayout(drawer)
+                .build();
 
-    NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-    NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-    NavigationUI.setupWithNavController(navigationView, navController);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        NavigationUI.setupWithNavController(navigationView, navController);
 
-    }
+        }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Toast.makeText(getApplicationContext(), "SETTING", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.quit:
+                moveTaskToBack(true);
+                android.os.Process.killProcess(android.os.Process.myPid());
+                System.exit(0);
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
         return true;
     }
 
