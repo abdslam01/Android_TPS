@@ -26,11 +26,6 @@
             android:value="AIzaSyAi-xFqxMu2qhz0BmT1kPfpyqCT6G_llVE" />
 
         <activity
-            android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"
-            android:exported="true">
-        </activity>
-        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.AndroidExamProject.NoActionBar">
