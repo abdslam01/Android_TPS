@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.androidexamproject.R;
 import com.example.androidexamproject.database.Database;
+import com.example.androidexamproject.ui.HomeFragment;
 
 public class DataFragment extends Fragment {
 
@@ -30,7 +31,7 @@ public class DataFragment extends Fragment {
         mView.findViewById(R.id.addBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DataEditFragment fragment = new DataEditFragment();
+                HomeFragment fragment = new HomeFragment();
                 Bundle args = new Bundle();
                 args.putString("CODE", "add");
                 fragment.setArguments(args);
@@ -39,6 +40,17 @@ public class DataFragment extends Fragment {
                         .beginTransaction().replace(R.id.nav_host_fragment_content_main, fragment)
                         .commit();
             }
+//            @Override
+//            public void onClick(View view) {
+//                DataEditFragment fragment = new DataEditFragment();
+//                Bundle args = new Bundle();
+//                args.putString("CODE", "add");
+//                fragment.setArguments(args);
+//
+//                getActivity().getSupportFragmentManager()
+//                        .beginTransaction().replace(R.id.nav_host_fragment_content_main, fragment)
+//                        .commit();
+//            }
         });
         return mView;
     }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,9 @@ import android.widget.Toast;
 
 import com.example.androidexamproject.R;
 import com.example.androidexamproject.database.Database;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class DataEditFragment extends Fragment {
 
@@ -65,6 +69,19 @@ public class DataEditFragment extends Fragment {
             evDateF.setText(cursor.getString(6));
             dvObservation.setText(String.valueOf(cursor.getString(7)));
             cursor.close();
+        }else if(getArguments().getString("CODE").equals("add")) {
+            String ville = getArguments().getString("ville");
+            String avenue = getArguments().getString("avenue");
+            String lat = getArguments().getString("lat");
+            String lng = getArguments().getString("lng");
+            String dates = getArguments().getString("dates");
+
+            evAvenue.setText(avenue);
+            evVille.setText(ville);
+            evLat.setText(lat);
+            evLng.setText(lng);
+            evDateD.setText(dates);
+            evDateF.setText(dates);
         }
 
         buttonApplyChanges.setOnClickListener( view1 -> {

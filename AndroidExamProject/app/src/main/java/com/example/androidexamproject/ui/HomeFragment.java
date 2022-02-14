@@ -1,18 +1,15 @@
 package com.example.androidexamproject.ui;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,14 +22,15 @@ import com.example.androidexamproject.helpers.Permission;
 import com.example.androidexamproject.ui.data.DataEditFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback {
@@ -41,6 +39,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     private View mView;
     private SearchView searchView;
     private Database db;
+    private DataEditFragment fragment;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -103,12 +102,30 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
+                if (getArguments()!=null && getArguments().getString("CODE").equals("add")){
+                    try {
+                        fragment = new DataEditFragment();
+                        Bundle args = new Bundle();
+                        Address adr = new Geocoder(getContext())
+                                .getFromLocation(latLng.latitude, latLng.longitude, 1).get(0);
+                        Log.e("a", adr.toString());
+                        args.putString("CODE", "add");
+                        args.putString("ville", adr.getLocality());
+                        args.putString("avenue", adr.getThoroughfare());
+                        args.putString("lat", String.valueOf(adr.getLatitude()));
+                        args.putString("lng", String.valueOf(adr.getLongitude()));
+                        args.putString("dates", new SimpleDateFormat("dd-mm-yyyy").format(new Date()));
+                        fragment.setArguments(args);
 
-                Toast.makeText(
-                        getContext(),
-                        "Lat : " + latLng.latitude + " , "
-                                + "Long : " + latLng.longitude,
-                        Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "Location Added...", Toast.LENGTH_LONG).show();
+                        getActivity().getSupportFragmentManager()
+                                .beginTransaction().replace(R.id.nav_host_fragment_content_main, fragment)
+                                .commit();
+                    } catch (IOException e) {
+                        Toast.makeText(getContext(), "Location not found, please click again",
+                                Toast.LENGTH_LONG).show();
+                    }
+                }
             }
         });
         drawPathMarkers();
@@ -133,8 +150,12 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         cursor.close();
         db.close();
     }
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
+
+//    @Override
+//    public void onDestroyView() {
+//        super.onDestroyView();
+//        if(fragment != null)
+//            getActivity().getSupportFragmentManager()
+//                    .beginTransaction().remove(fragment).commit();
+//    }
 }
