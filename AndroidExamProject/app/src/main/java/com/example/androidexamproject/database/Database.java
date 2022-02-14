@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -84,6 +85,20 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.rawQuery("select * from "+DB_NAME+" where id=?",
                 new String[] {id+""});
+    }
+
+    public int getLastInsertedId(){
+        Cursor cursor = this.getWritableDatabase()
+                .rawQuery("SELECT max(id) from " + DB_NAME, null);
+        int rowId;
+        if(cursor.getCount() == 0)
+            rowId = 0;
+        else{
+            cursor.moveToFirst();
+            rowId = cursor.getInt(0);
+        }
+        cursor.close();
+        return rowId;
     }
 
     private ContentValues getContentValues(
