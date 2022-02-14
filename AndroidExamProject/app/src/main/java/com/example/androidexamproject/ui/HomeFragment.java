@@ -70,6 +70,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 //        LatLng sydney = new LatLng(-34, 151);
 //        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap.getUiSettings().setZoomControlsEnabled(true);
 
         mMap.clear();
 
@@ -92,8 +93,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                         mMap.clear();
                         addressList = geocoder.getFromLocationName(location, 1);
                         LatLng latLng = new LatLng(addressList.get(0).getLatitude(), addressList.get(0).getLongitude());
-                        mMap.addMarker(new MarkerOptions().position(latLng).title(location));
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 6));
                     }catch(Exception e) {
                         Toast.makeText(getContext(), "Location not found", Toast.LENGTH_LONG).show();
                     }
@@ -117,7 +117,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                         marker = mMap.addMarker(new MarkerOptions()
                                 .position(new LatLng(latLng.latitude, latLng.longitude))
                                 .title("You clicked here")
-                                .snippet("Click this marker to confirm"));
+                                .snippet("Click this marker to confirm")
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                     }catch (Exception e){
                         Toast.makeText(getContext(), "Location not found, please click again",
                                 Toast.LENGTH_LONG).show();
@@ -169,11 +170,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         db.close();
     }
 
-//    @Override
-//    public void onDestroyView() {
-//        super.onDestroyView();
-//        if(fragment != null)
-//            getActivity().getSupportFragmentManager()
-//                    .beginTransaction().remove(fragment).commit();
-//    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
 }

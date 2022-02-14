@@ -71,7 +71,7 @@ public class DataFragment extends Fragment {
     }
 
     private void loadDataLayout(){
-        db = new Database(getContext());
+        db = new Database(getActivity().getApplicationContext());
         //db.insertData(1, "A st.", "Rabat", 10.5f, 10, "10-01-2022", "20-21-2022", "Observation");
         //db.insertData(2, "2 A st.", "2 Rabat", 10.5f, 10, "10-01-2022", "20-21-2022", "Observation");
 
