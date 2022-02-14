@@ -17,12 +17,11 @@ import androidx.fragment.app.Fragment;
 import com.example.androidexamproject.R;
 import com.example.androidexamproject.database.Database;
 
-import java.util.Date;
-
 public class DataFragment extends Fragment {
 
     private Database db;
     private View mView;
+    private DataEditFragment fragment;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -54,6 +53,9 @@ public class DataFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        if(fragment != null)
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction().remove(fragment).commit();
     }
 
     private void loadDataLayout(){
@@ -81,7 +83,7 @@ public class DataFragment extends Fragment {
                 editLineBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        DataEditFragment fragment = new DataEditFragment();
+                        fragment = new DataEditFragment();
                         Bundle args = new Bundle();
                         args.putInt("ID", id);
                         args.putString("CODE", "edit");

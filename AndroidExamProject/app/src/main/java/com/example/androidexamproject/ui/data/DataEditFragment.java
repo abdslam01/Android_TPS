@@ -94,4 +94,10 @@ public class DataEditFragment extends Fragment {
 
         db.close();
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
 }

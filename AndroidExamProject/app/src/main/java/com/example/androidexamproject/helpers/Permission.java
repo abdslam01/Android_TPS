@@ -14,7 +14,7 @@ public class Permission {
                 ContextCompat.checkSelfPermission(context, permission);
     }
 
-    private static void askForPermission(Activity activity, String permission, int requestCode) {
+    public static void askForPermission(Activity activity, String permission, int requestCode) {
         ActivityCompat.requestPermissions(activity,
                 new String[]{permission}, requestCode);
     }

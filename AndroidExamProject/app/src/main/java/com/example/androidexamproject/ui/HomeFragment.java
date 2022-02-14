@@ -1,13 +1,18 @@
 package com.example.androidexamproject.ui;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.database.Cursor;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,12 +20,16 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.androidexamproject.R;
+import com.example.androidexamproject.database.Database;
 import com.example.androidexamproject.helpers.Permission;
+import com.example.androidexamproject.ui.data.DataEditFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -31,6 +40,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap mMap;
     private View mView;
     private SearchView searchView;
+    private Database db;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -55,11 +65,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
-        mMap.getUiSettings().setZoomControlsEnabled(true);
+//        LatLng sydney = new LatLng(-34, 151);
+//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -92,8 +100,39 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                 return false;
             }
         });
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+
+                Toast.makeText(
+                        getContext(),
+                        "Lat : " + latLng.latitude + " , "
+                                + "Long : " + latLng.longitude,
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+        drawPathMarkers();
     }
 
+    @SuppressLint("Range")
+    private void drawPathMarkers(){
+        db = new Database(getContext());
+        Cursor cursor = db.selectData();
+
+        while(cursor.moveToNext()){
+            mMap.addMarker(new MarkerOptions().position(
+                    new LatLng(
+                            cursor.getFloat(cursor.getColumnIndex("lat")),
+                            cursor.getFloat(cursor.getColumnIndex("lng"))
+                    )
+            ).title(cursor.getString(cursor.getColumnIndex("ville")))
+            .snippet(cursor.getString(cursor.getColumnIndex("avenue")))
+            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+        }
+
+        cursor.close();
+        db.close();
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();
