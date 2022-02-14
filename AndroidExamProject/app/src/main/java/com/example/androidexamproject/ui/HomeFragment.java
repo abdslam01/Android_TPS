@@ -26,6 +26,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
@@ -40,6 +41,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     private SearchView searchView;
     private Database db;
     private DataEditFragment fragment;
+    private Marker marker;
+    private Address adr;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -67,6 +70,11 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 //        LatLng sydney = new LatLng(-34, 151);
 //        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+        mMap.clear();
+
+        if(getArguments() == null || !getArguments().getString("CODE").equals("add"))
+            drawPathMarkers();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -104,31 +112,41 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             public void onMapClick(LatLng latLng) {
                 if (getArguments()!=null && getArguments().getString("CODE").equals("add")){
                     try {
-                        fragment = new DataEditFragment();
-                        Bundle args = new Bundle();
-                        Address adr = new Geocoder(getContext())
+                        adr = new Geocoder(getContext())
                                 .getFromLocation(latLng.latitude, latLng.longitude, 1).get(0);
-                        Log.e("a", adr.toString());
-                        args.putString("CODE", "add");
-                        args.putString("ville", adr.getLocality());
-                        args.putString("avenue", adr.getThoroughfare());
-                        args.putString("lat", String.valueOf(adr.getLatitude()));
-                        args.putString("lng", String.valueOf(adr.getLongitude()));
-                        args.putString("dates", new SimpleDateFormat("dd-mm-yyyy").format(new Date()));
-                        fragment.setArguments(args);
-
-                        Toast.makeText(getContext(), "Location Added...", Toast.LENGTH_LONG).show();
-                        getActivity().getSupportFragmentManager()
-                                .beginTransaction().replace(R.id.nav_host_fragment_content_main, fragment)
-                                .commit();
-                    } catch (IOException e) {
+                        marker = mMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(latLng.latitude, latLng.longitude))
+                                .title("You clicked here")
+                                .snippet("Click this marker to confirm"));
+                    }catch (Exception e){
                         Toast.makeText(getContext(), "Location not found, please click again",
                                 Toast.LENGTH_LONG).show();
                     }
                 }
             }
         });
-        drawPathMarkers();
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(@NonNull Marker marker_in) {
+                if(marker!=null && marker.equals(marker_in)){
+                    fragment = new DataEditFragment();
+                    Bundle args = new Bundle();
+                    args.putString("CODE", "add");
+                    args.putString("ville", adr.getLocality());
+                    args.putString("avenue", adr.getThoroughfare());
+                    args.putString("lat", String.valueOf(adr.getLatitude()));
+                    args.putString("lng", String.valueOf(adr.getLongitude()));
+                    args.putString("dates", new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
+                    fragment.setArguments(args);
+
+                    Toast.makeText(getContext(), "Location Added...", Toast.LENGTH_LONG).show();
+                    getActivity().getSupportFragmentManager()
+                            .beginTransaction().replace(R.id.nav_host_fragment_content_main, fragment)
+                            .commit();
+                }
+                return false;
+            }
+        });
     }
 
     @SuppressLint("Range")
