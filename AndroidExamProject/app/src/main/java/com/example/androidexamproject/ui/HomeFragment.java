@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +28,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -112,6 +110,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             public void onMapClick(LatLng latLng) {
                 if (getArguments()!=null && getArguments().getString("CODE").equals("add")){
                     try {
+                        if(marker != null)
+                            marker.remove();
                         adr = new Geocoder(getContext())
                                 .getFromLocation(latLng.latitude, latLng.longitude, 1).get(0);
                         marker = mMap.addMarker(new MarkerOptions()

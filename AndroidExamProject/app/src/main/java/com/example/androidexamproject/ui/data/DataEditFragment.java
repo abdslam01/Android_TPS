@@ -76,7 +76,7 @@ public class DataEditFragment extends Fragment {
             String lng = getArguments().getString("lng");
             String dates = getArguments().getString("dates");
 
-            evId.setText(String.valueOf(db.selectData().getCount() + 1));
+            evId.setText(String.valueOf(db.getLastInsertedId() + 1));
             evAvenue.setText(avenue);
             evVille.setText(ville);
             evLat.setText(lat);
