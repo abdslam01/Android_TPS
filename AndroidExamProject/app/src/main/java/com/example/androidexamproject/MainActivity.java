@@ -1,5 +1,6 @@
 package com.example.androidexamproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_settings:
                 Toast.makeText(getApplicationContext(), "SETTING", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(MainActivity.this,SettingActivity.class));
                 break;
             case R.id.quit:
                 moveTaskToBack(true);

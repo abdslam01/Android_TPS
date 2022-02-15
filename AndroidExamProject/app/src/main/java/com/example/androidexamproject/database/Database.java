@@ -87,6 +87,12 @@ public class Database extends SQLiteOpenHelper {
                 new String[] {id+""});
     }
 
+    public void deleteAllData()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.rawQuery("delete from " + DB_NAME,null);
+    }
+
     public int getLastInsertedId(){
         Cursor cursor = this.getWritableDatabase()
                 .rawQuery("SELECT max(id) from " + DB_NAME, null);
