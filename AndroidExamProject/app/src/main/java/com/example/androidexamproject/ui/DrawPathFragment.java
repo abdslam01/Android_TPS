@@ -35,6 +35,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.maps.android.PolyUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,8 +49,8 @@ public class DrawPathFragment extends Fragment implements OnMapReadyCallback,
     private Button buttonDrawPath;
     private EditText editTextIdDepart, getEditTextIdArrivee;
     private final static int LOCATION_REQUEST_CODE = 23;
-    private List<Polyline> polylines;
     protected LatLng start, end;
+    protected int i_start, i_end;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -75,20 +76,20 @@ public class DrawPathFragment extends Fragment implements OnMapReadyCallback,
         buttonDrawPath.setOnClickListener(v -> {
             mMap.clear();
 
-            int id_depart = Integer.parseInt(editTextIdDepart.getText().toString());
-            int id_arrivee = Integer.parseInt(getEditTextIdArrivee.getText().toString());
+            i_start = Integer.parseInt(editTextIdDepart.getText().toString());
+            i_end = Integer.parseInt(getEditTextIdArrivee.getText().toString());
 
             db = new Database(getContext());
-            if(db.selectDataById(id_depart).getCount() == 0)
+            if(db.selectDataById(i_start).getCount() == 0)
                 Toast.makeText(getContext(), "Depart id is incorrect...", Toast.LENGTH_LONG)
                         .show();
-            else if(db.selectDataById(id_arrivee).getCount() == 0)
+            else if(db.selectDataById(i_end).getCount() == 0)
                 Toast.makeText(getContext(), "Arrival id is incorrect...", Toast.LENGTH_LONG)
                         .show();
             else {
-                drawPathMarkers(id_depart, id_arrivee);
+                drawPathMarkers(i_start, i_end);
                 start = null;
-                for(int id : new Integer[]{id_depart, id_arrivee}) {
+                for(int id : new Integer[]{i_start, i_end}) {
                     Cursor cur = db.selectDataById(id);
                     cur.moveToFirst();
                     if(start == null)
@@ -161,7 +162,7 @@ public class DrawPathFragment extends Fragment implements OnMapReadyCallback,
                     .key("AIzaSyDHCY5a7ZKFXnzL4ON-EcCbteejHffwP_o")
                     .build();
             routing.execute();
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Start, 6));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Start, 10));
         }
     }
 
@@ -185,21 +186,47 @@ public class DrawPathFragment extends Fragment implements OnMapReadyCallback,
         findRoutes(start,end);
     }
 
+    @SuppressLint("Range")
     @Override
     public void onRoutingSuccess(ArrayList<Route> route, int shortestRouteIndex) {
-        if (polylines != null)
-            polylines.clear();
         PolylineOptions polyOptions = new PolylineOptions();
+        PolylineOptions polyOptionsConstraint = new PolylineOptions();
+        ArrayList<LatLng> locations = new ArrayList<>();
+        Cursor cur;
+        Boolean tmpBool;
 
-        polylines = new ArrayList<>();
+        db = new Database(getContext());
+        cur = db.selectData();
+        while(cur.moveToNext()) {
+            if(cur.getInt(0) != i_start && cur.getInt(0) != i_end)
+                locations.add(new LatLng(
+                        cur.getFloat(cur.getColumnIndex("lat")),
+                        cur.getFloat(cur.getColumnIndex("lng"))
+                ));
+        }
+        cur.close();
+        db.close();
+
         //add route(s) to the map using polyline
         for (int i = 0; i < route.size(); i++) {
             if (i == shortestRouteIndex) {
                 polyOptions.color(getResources().getColor(R.color.black));
                 polyOptions.width(7);
                 polyOptions.addAll(route.get(shortestRouteIndex).getPoints());
-                Polyline polyline = mMap.addPolyline(polyOptions);
-                polylines.add(polyline);
+                mMap.addPolyline(polyOptions);
+            }
+
+            tmpBool = true;
+            for(LatLng loc: locations) {
+                if(PolyUtil.isLocationOnPath(loc, route.get(i).getPoints(), true, 30)){
+                    tmpBool = false;
+                }
+            }
+            if(tmpBool) {
+                polyOptionsConstraint.color(getResources().getColor(R.color.purple_200));
+                polyOptionsConstraint.width(7);
+                polyOptionsConstraint.addAll(route.get(i).getPoints());
+                mMap.addPolyline(polyOptionsConstraint);
             }
         }
     }

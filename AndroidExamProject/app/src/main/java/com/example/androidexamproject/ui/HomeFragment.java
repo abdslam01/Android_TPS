@@ -65,7 +65,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-//        LatLng sydney = new LatLng(-34, 151);
+//        LatLng sydney = new LatLng(34, -6);
 //        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         mMap.getUiSettings().setZoomControlsEnabled(true);
@@ -91,7 +91,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                         mMap.clear();
                         addressList = geocoder.getFromLocationName(location, 1);
                         LatLng latLng = new LatLng(addressList.get(0).getLatitude(), addressList.get(0).getLongitude());
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 6));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
                     }catch(Exception e) {
                         Toast.makeText(getContext(), "Location not found", Toast.LENGTH_LONG).show();
                     }
